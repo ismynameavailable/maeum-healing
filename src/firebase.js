@@ -3,13 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAXg2PUQBuGpZFRGz4ziQrROEN68Hvoe8o",
-  authDomain: "maeum-healing.firebaseapp.com",
-  projectId: "maeum-healing",
-  storageBucket: "maeum-healing.firebasestorage.app",
-  messagingSenderId: "521244487900",
-  appId: "1:521244487900:web:f32a9df897008357928419",
-  measurementId: "G-5TB21DP8KK",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
