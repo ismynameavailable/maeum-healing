@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Write from "./pages/Write";
 import History from "./pages/History";
 import Main from "./pages/Main";
+import SharedVideo from "./components/SharedVideo";
+import Contents from "./pages/Contents";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -20,16 +22,20 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        {/* ✅ 인트로 시작 화면 */}
-        <Route path="/" element={<Intro />} />
+      {/* ✅ 영상 항상 재생 */}
+      <SharedVideo />
 
-        {/* 로그인, 기록, 히스토리 */}
-        <Route path="/login" element={<Login onLogin={setUser} />} />
-        <Route path="/write" element={<Write user={user} />} />
-        <Route path="/history" element={<History user={user} />} />
-        <Route path="/main" element={<Main user={user} />} />
-      </Routes>
+      {/* ✅ 페이지들 영상 위에 덮음 */}
+      <div className="relative z-10">
+        <Routes>
+          <Route path="/" element={<Intro />} />
+          <Route path="/login" element={<Login onLogin={setUser} />} />
+          <Route path="/write" element={<Write user={user} />} />
+          <Route path="/history" element={<History user={user} />} />
+          <Route path="/main" element={<Main user={user} />} />
+          <Route path="/contents" element={<Contents user={user} />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

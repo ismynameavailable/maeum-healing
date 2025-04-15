@@ -12,17 +12,17 @@ function Main({ user }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-green-100 flex flex-col items-center px-4 relative">
-      {/* ✅ 뒤로가기 버튼 */}
+    <div className="relative w-full h-screen overflow-hidden z-10">
+      {/* 뒤로가기 버튼 */}
       <button
         onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 text-sm text-gray-500 hover:underline z-50"
+        className="absolute top-4 left-4 text-sm text-white hover:underline z-20"
       >
         ◀ 뒤로가기
       </button>
 
-      {/* 상단 고정된 텍스트 */}
-      <div className="mt-[20vh] text-center">
+      {/* 상단 텍스트 */}
+      <div className="mt-[20vh] text-center text-white">
         <motion.h2
           className="text-xl mb-2"
           initial={{ opacity: 0 }}
@@ -41,13 +41,13 @@ function Main({ user }) {
         </motion.h1>
       </div>
 
-      {/* 버튼은 따로 밑에 등장 */}
+      {/* 버튼들 */}
       {showButtons && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="mt-6 space-y-4 w-full max-w-xs"
+          className="mt-6 space-y-4 w-full max-w-xs mx-auto"
         >
           {[
             { label: "감정 기록", path: "/write" },
@@ -58,7 +58,7 @@ function Main({ user }) {
             <button
               key={btn.path}
               onClick={() => navigate(btn.path)}
-              className="w-full py-3 bg-white rounded shadow hover:scale-105 hover:bg-green-200 transition"
+              className="w-full py-3 bg-white text-black rounded shadow hover:scale-105 hover:bg-green-200 transition"
             >
               {btn.label}
             </button>

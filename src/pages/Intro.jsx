@@ -5,18 +5,8 @@ function Intro() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* ✅ 배경 영상 */}
-      <video
-        src="/background.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-      />
-
-      {/* ✅ 검정 반투명 오버레이 */}
+    <div className="relative w-full h-screen overflow-hidden z-10">
+      {/* ✅ 검정 반투명 오버레이 (영상은 SharedVideo에서 제공됨) */}
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
 
       {/* ✅ 콘텐츠 (글자 + 버튼) */}
@@ -27,7 +17,7 @@ function Intro() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
         >
-          마음쉼터에 오신 걸 환영합니다 🍃
+          마음쉼터에 오신 것을 환영합니다.
         </motion.h1>
 
         <motion.p
