@@ -186,23 +186,46 @@ export default function Contents({ user }) {
       }}
     >
       {showMessage && (
-        <div
-          style={{
-            position: "absolute",
-            top: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            borderRadius: "10px",
-            padding: "12px 24px",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-            zIndex: 100,
-            fontWeight: "bold",
-            fontSize: "1rem",
-          }}
-        >
-          구름 속에 숨은 음악 큐브 5개를 찾아 클릭해보세요!
-        </div>
+        <>
+          {/* 🎯 기존 말풍선 */}
+          <div
+            style={{
+              position: "absolute",
+              top: "20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              borderRadius: "10px",
+              padding: "12px 24px",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+              zIndex: 100,
+              fontWeight: "bold",
+              fontSize: "1rem",
+            }}
+          >
+            구름 속에 숨은 음악 큐브 5개를 찾아 클릭해보세요!
+          </div>
+
+          {/* 🪄 추가되는 작은 힌트 말풍선 */}
+          <div
+            style={{
+              position: "absolute",
+              top: "80px", // 기존 말풍선 아래로 살짝 내리기
+              left: "50%",
+              transform: "translateX(-50%)",
+              backgroundColor: "rgba(255, 255, 255, 0.85)",
+              borderRadius: "8px",
+              padding: "6px 14px",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+              zIndex: 99,
+              fontSize: "0.85rem",
+              color: "#333",
+              fontWeight: 500,
+            }}
+          >
+            💡 힌트: 확대/축소 이용 가능!
+          </div>
+        </>
       )}
       <Canvas camera={{ position: [0, 0, 0], fov: 60 }}>
         {" "}

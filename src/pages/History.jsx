@@ -28,7 +28,6 @@ function History({ user }) {
 
   useEffect(() => {
     fetchEntries();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const fetchEntries = async () => {
@@ -70,102 +69,121 @@ function History({ user }) {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 py-10 px-4">
-      <div className="max-w-2xl mx-auto">
-        {/* 뒤로가기 */}
-        <button
-          onClick={() => navigate(-1)}
-          className="text-sm text-gray-500 hover:underline mb-4"
-        >
-          ◀ 뒤로가기
-        </button>
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* ✅ 배경 영상 */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        src="/sea.mp4"
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        ref={(video) => {
+          if (video) video.playbackRate = 0.7; // 🎯 속도 조절
+        }}
+      />
 
-        <h1 className="text-2xl font-bold text-center mb-6">
-          감정 기록 히스토리
-        </h1>
+      {/* ✅ 반투명 오버레이 */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
 
-        <div className="space-y-4">
-          {entries.length === 0 && (
-            <p className="text-center text-gray-400">기록이 아직 없습니다.</p>
-          )}
+      {/* ✅ 실제 콘텐츠 */}
+      <div className="relative z-20 py-10 px-4 min-h-screen">
+        <div className="max-w-2xl mx-auto">
+          {/* 뒤로가기 */}
+          <button
+            onClick={() => navigate(-1)}
+            className="text-sm text-gray-700 hover:underline mb-4"
+          >
+            ◀ 뒤로가기
+          </button>
 
-          {entries.map((entry) => (
-            <div
-              key={entry.id}
-              className="bg-white rounded-xl shadow p-4 border-l-4 border-green-400"
-            >
-              <div className="flex justify-between mb-2 text-sm text-gray-500">
-                <span>
-                  {new Date(entry.timestamp?.seconds * 1000).toLocaleString()}
-                </span>
-                <span>
-                  {entry.emotion?.emoji || ""} {entry.emotion?.label || ""}
-                </span>
-              </div>
+          <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+            감정 기록 히스토리
+          </h1>
 
-              {editId === entry.id ? (
-                <>
-                  <textarea
-                    rows="3"
-                    value={editText}
-                    onChange={(e) => setEditText(e.target.value)}
-                    className="w-full border p-2 rounded mb-2"
-                  />
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    {emotionOptions.map((opt) => (
+          <div className="space-y-4">
+            {entries.length === 0 && (
+              <p className="text-center text-gray-500">기록이 아직 없습니다.</p>
+            )}
+
+            {entries.map((entry) => (
+              <div
+                key={entry.id}
+                className="bg-white bg-opacity-90 backdrop-blur-md rounded-xl shadow p-4 border-l-4 border-green-400"
+              >
+                <div className="flex justify-between mb-2 text-sm text-gray-500">
+                  <span>
+                    {new Date(entry.timestamp?.seconds * 1000).toLocaleString()}
+                  </span>
+                  <span>
+                    {entry.emotion?.emoji || ""} {entry.emotion?.label || ""}
+                  </span>
+                </div>
+
+                {editId === entry.id ? (
+                  <>
+                    <textarea
+                      rows="3"
+                      value={editText}
+                      onChange={(e) => setEditText(e.target.value)}
+                      className="w-full border p-2 rounded mb-2"
+                    />
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {emotionOptions.map((opt) => (
+                        <button
+                          key={opt.label}
+                          onClick={() => setEditEmotion(opt)}
+                          className={`px-3 py-1 border rounded-full ${
+                            editEmotion?.label === opt.label
+                              ? "bg-green-400 text-white font-bold"
+                              : "bg-white hover:bg-green-100"
+                          }`}
+                        >
+                          {opt.emoji} {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="flex gap-2 justify-end">
                       <button
-                        key={opt.label}
-                        onClick={() => setEditEmotion(opt)}
-                        className={`px-3 py-1 border rounded-full ${
-                          editEmotion?.label === opt.label
-                            ? "bg-green-400 text-white font-bold"
-                            : "bg-white hover:bg-green-100"
-                        }`}
+                        onClick={handleSave}
+                        className="text-white bg-green-500 px-3 py-1 rounded hover:bg-green-600"
                       >
-                        {opt.emoji} {opt.label}
+                        저장
                       </button>
-                    ))}
-                  </div>
-                  <div className="flex gap-2 justify-end">
-                    <button
-                      onClick={handleSave}
-                      className="text-white bg-green-500 px-3 py-1 rounded hover:bg-green-600"
-                    >
-                      저장
-                    </button>
-                    <button
-                      onClick={() => setEditId(null)}
-                      className="text-gray-600 bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
-                    >
-                      취소
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className="text-gray-800 whitespace-pre-line mb-2">
-                    {entry.text}
-                  </p>
-                  <div className="flex gap-2 justify-end">
-                    <button
-                      onClick={() =>
-                        handleEdit(entry.id, entry.text, entry.emotion)
-                      }
-                      className="text-sm text-blue-600 hover:underline"
-                    >
-                      ✏ 수정
-                    </button>
-                    <button
-                      onClick={() => handleDelete(entry.id)}
-                      className="text-sm text-red-600 hover:underline"
-                    >
-                      🗑 삭제
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
+                      <button
+                        onClick={() => setEditId(null)}
+                        className="text-gray-600 bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+                      >
+                        취소
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-gray-800 whitespace-pre-line mb-2">
+                      {entry.text}
+                    </p>
+                    <div className="flex gap-2 justify-end">
+                      <button
+                        onClick={() =>
+                          handleEdit(entry.id, entry.text, entry.emotion)
+                        }
+                        className="text-sm text-blue-600 hover:underline"
+                      >
+                        ✏ 수정
+                      </button>
+                      <button
+                        onClick={() => handleDelete(entry.id)}
+                        className="text-sm text-red-600 hover:underline"
+                      >
+                        🗑 삭제
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
