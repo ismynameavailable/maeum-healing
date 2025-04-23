@@ -31,7 +31,10 @@ function Write({ user }) {
     const entryRef = doc(db, "users", user.userId, "entries", today);
 
     await setDoc(entryRef, {
-      emotion,
+      emotion: {
+        emoji: emotion.emoji,
+        label: emotion.label,
+      },
       text,
       nickname: user.nickname,
       timestamp: serverTimestamp(),
@@ -64,11 +67,6 @@ function Write({ user }) {
 
       {/* ✅ 실제 콘텐츠 */}
       <div className="relative z-20 flex flex-col min-h-screen">
-        {/* Header */}
-        <header className="bg-green-200 bg-opacity-90 p-4 text-center text-xl font-semibold">
-          마음쉼터 | 감정 기록하기
-        </header>
-
         {/* Main */}
         <main className="flex-grow flex flex-col items-center justify-center px-4 py-10 relative">
           {/* 뒤로가기 */}
@@ -118,11 +116,6 @@ function Write({ user }) {
             </div>
           </div>
         </main>
-
-        {/* Footer */}
-        <footer className="bg-green-100 bg-opacity-90 text-center text-xs py-3 text-gray-800">
-          © 2025 마음쉼터. 모든 마음은 소중합니다.
-        </footer>
       </div>
     </div>
   );

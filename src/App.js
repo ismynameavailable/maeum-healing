@@ -7,6 +7,7 @@ import History from "./pages/History";
 import Main from "./pages/Main";
 import SharedVideo from "./components/SharedVideo";
 import Contents from "./pages/Contents";
+import Chat from "./pages/Chat";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/history" element={<History user={user} />} />
           <Route path="/main" element={<Main user={user} />} />
           <Route path="/contents" element={<Contents user={user} />} />
+          <Route path="/chat" element={<Chat user={user} />} />
         </Routes>
       </div>
     </BrowserRouter>

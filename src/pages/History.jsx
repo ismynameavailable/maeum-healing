@@ -91,13 +91,13 @@ function History({ user }) {
         <div className="max-w-2xl mx-auto">
           {/* 뒤로가기 */}
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/main")}
             className="text-sm text-gray-700 hover:underline mb-4"
           >
             ◀ 뒤로가기
           </button>
 
-          <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+          <h1 className="text-2xl font-bold text-center mb-6 text-white">
             감정 기록 히스토리
           </h1>
 

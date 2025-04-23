@@ -120,16 +120,24 @@ export default function Contents({ user }) {
       const entriesRef = collection(db, "users", user.userId, "entries");
       const q = query(entriesRef, orderBy("timestamp", "desc"));
       const snapshot = await getDocs(q);
+
       if (!snapshot.empty) {
         const latest = snapshot.docs[0].data();
         const emotionLabel = latest.emotion?.label;
         const keyword = emotionKeywordMap[emotionLabel] || "힐링 음악";
         fetchYoutubeVideos(keyword);
+      } else {
+        // ✅ 기본 추천 영상 추가
+        setVideoData([
+          { id: "fRh_vgS2dFE", title: "기분 좋아지는 팝 음악" },
+          { id: "2OEL4P1Rz04", title: "스트레스 날리는 자연 사운드" },
+          { id: "0fYL_qiDYf0", title: "편안한 하루를 위한 재즈" },
+        ]);
       }
     };
 
     const fetchYoutubeVideos = async (keyword) => {
-      const API_KEY = "AIzaSyCIy2tw8CqP88_CWIHl1as65koT1lHlcuo"; // 🔑 실제 API 키 입력 필요
+      const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
       const res = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
           keyword
@@ -187,7 +195,6 @@ export default function Contents({ user }) {
     >
       {showMessage && (
         <>
-          {/* 🎯 기존 말풍선 */}
           <div
             style={{
               position: "absolute",
@@ -204,13 +211,20 @@ export default function Contents({ user }) {
             }}
           >
             구름 속에 숨은 음악 큐브 5개를 찾아 클릭해보세요!
+            <p
+              style={{
+                fontSize: "0.75rem",
+                color: "gray",
+              }}
+            >
+              음악 큐브는 가장 최근 기록된 감정에 따라 제공돼요. 기록이 없으면
+              랜덤 생성됩니다.
+            </p>
           </div>
-
-          {/* 🪄 추가되는 작은 힌트 말풍선 */}
           <div
             style={{
               position: "absolute",
-              top: "80px", // 기존 말풍선 아래로 살짝 내리기
+              top: "100px",
               left: "50%",
               transform: "translateX(-50%)",
               backgroundColor: "rgba(255, 255, 255, 0.85)",
@@ -228,8 +242,6 @@ export default function Contents({ user }) {
         </>
       )}
       <Canvas camera={{ position: [0, 0, 0], fov: 60 }}>
-        {" "}
-        {/* 🔭 카메라를 구름 중심에 배치 */}
         <ambientLight intensity={0.8} />
         <directionalLight position={[10, 10, 5]} />
         <OrbitControls minDistance={10} maxDistance={300} />

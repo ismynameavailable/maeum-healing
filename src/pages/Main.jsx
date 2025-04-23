@@ -15,7 +15,7 @@ function Main({ user }) {
     <div className="relative w-full h-screen overflow-hidden z-10">
       {/* 뒤로가기 버튼 */}
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/Login")}
         className="absolute top-4 left-4 text-sm text-white hover:underline z-20"
       >
         ◀ 뒤로가기
