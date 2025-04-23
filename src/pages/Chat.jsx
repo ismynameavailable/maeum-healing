@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
+import BackButton from "../components/BackButton"; // ✅ 추가
+
 import {
   doc,
   setDoc,
@@ -137,12 +139,7 @@ function Chat({ user }) {
         position: "relative",
       }}
     >
-      <button
-        onClick={() => navigate(-1)}
-        style={{ position: "absolute", top: 20, left: 20 }}
-      >
-        ← 뒤로가기
-      </button>
+      <BackButton to="/main" />
 
       <div
         style={{

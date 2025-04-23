@@ -63,13 +63,6 @@ function Login({ onLogin }) {
           * 처음이라면 자동으로 등록됩니다.
         </p>
       </div>
-
-      <button
-        onClick={() => navigate("/")}
-        className="absolute top-4 left-4 text-sm text-white hover:underline z-20"
-      >
-        ◀ 뒤로가기
-      </button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import BackButton from "../components/BackButton"; // ✅ 추가
 function Main({ user }) {
   const [showButtons, setShowButtons] = useState(false);
   const navigate = useNavigate();
@@ -14,12 +14,7 @@ function Main({ user }) {
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
       {/* 뒤로가기 버튼 */}
-      <button
-        onClick={() => navigate("/Login")}
-        className="absolute top-4 left-4 text-sm text-white hover:underline z-20"
-      >
-        ◀ 뒤로가기
-      </button>
+      <BackButton to="/Login" />
 
       {/* 상단 텍스트 */}
       <div className="mt-[20vh] text-center text-white">

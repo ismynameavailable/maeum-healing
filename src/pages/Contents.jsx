@@ -5,6 +5,7 @@ import { OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase";
+import BackButton from "../components/BackButton";
 
 const emotionKeywordMap = {
   기쁨: "기분 좋아지는 음악",
@@ -248,6 +249,7 @@ export default function Contents({ user }) {
         {clouds}
         {cubes}
       </Canvas>
+      <BackButton to="/main" />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../components/BackButton"; // ✅ 추가
 
 const emotionOptions = [
   { label: "기쁨", emoji: "😊" },
@@ -90,12 +91,7 @@ function History({ user }) {
       <div className="relative z-20 py-10 px-4 min-h-screen">
         <div className="max-w-2xl mx-auto">
           {/* 뒤로가기 */}
-          <button
-            onClick={() => navigate("/main")}
-            className="text-sm text-gray-700 hover:underline mb-4"
-          >
-            ◀ 뒤로가기
-          </button>
+          <BackButton to="/main" />
 
           <h1 className="text-2xl font-bold text-center mb-6 text-white">
             감정 기록 히스토리
