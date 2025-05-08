@@ -23,10 +23,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* ✅ 영상 항상 재생 */}
+      {/*  영상 항상 재생 */}
       <SharedVideo />
 
-      {/* ✅ 페이지들 영상 위에 덮음 */}
+      {/*  페이지들 영상 위에 덮음 */}
       <div className="relative z-10">
         <Routes>
           <Route path="/" element={<Intro />} />

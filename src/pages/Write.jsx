@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
+import BackButton from "../components/BackButton";
 
 const emotions = [
   { emoji: "🙂", label: "기쁨" },
@@ -49,7 +50,7 @@ function Write({ user }) {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* ✅ 배경 영상 */}
+      {/*  배경 영상 */}
       <video
         autoPlay
         loop
@@ -62,20 +63,13 @@ function Write({ user }) {
         }}
       />
 
-      {/* ✅ 반투명 검정 오버레이 */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
-
-      {/* ✅ 실제 콘텐츠 */}
+      {/*  실제 콘텐츠 */}
       <div className="relative z-20 flex flex-col min-h-screen">
-        {/* Main */}
         <main className="flex-grow flex flex-col items-center justify-center px-4 py-10 relative">
-          {/* 뒤로가기 */}
-          <button
-            onClick={() => navigate(-1)}
-            className="absolute top-4 left-4 text-sm text-gray-200 hover:underline z-30"
-          >
-            ◀ 뒤로가기
-          </button>
+          {/* 뒤로가기 버튼 */}
+          <div className="w-full max-w-xl mb-4 mt-4">
+            <BackButton to="/main" />
+          </div>
 
           <div className="max-w-xl w-full bg-white bg-opacity-90 backdrop-blur-md rounded-xl shadow-lg p-6">
             <h2 className="text-lg font-medium mb-4 text-center text-gray-800">

@@ -1,4 +1,3 @@
-// Contents.jsx
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
@@ -128,7 +127,6 @@ export default function Contents({ user }) {
         const keyword = emotionKeywordMap[emotionLabel] || "힐링 음악";
         fetchYoutubeVideos(keyword);
       } else {
-        // ✅ 기본 추천 영상 추가
         setVideoData([
           { id: "fRh_vgS2dFE", title: "기분 좋아지는 팝 음악" },
           { id: "2OEL4P1Rz04", title: "스트레스 날리는 자연 사운드" },
@@ -194,6 +192,17 @@ export default function Contents({ user }) {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          zIndex: 100,
+        }}
+      >
+        <BackButton to="/main" />
+      </div>
+
       {showMessage && (
         <>
           <div
@@ -206,7 +215,7 @@ export default function Contents({ user }) {
               borderRadius: "10px",
               padding: "12px 24px",
               boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-              zIndex: 100,
+              zIndex: 99,
               fontWeight: "bold",
               fontSize: "1rem",
             }}
@@ -232,7 +241,7 @@ export default function Contents({ user }) {
               borderRadius: "8px",
               padding: "6px 14px",
               boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-              zIndex: 99,
+              zIndex: 98,
               fontSize: "0.85rem",
               color: "#333",
               fontWeight: 500,
@@ -249,7 +258,6 @@ export default function Contents({ user }) {
         {clouds}
         {cubes}
       </Canvas>
-      <BackButton to="/main" />
     </div>
   );
 }

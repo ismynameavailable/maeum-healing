@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
-import BackButton from "../components/BackButton"; // ✅ 추가
-
+import BackButton from "../components/BackButton";
 import {
   doc,
   setDoc,
@@ -24,9 +23,7 @@ function Chat({ user }) {
 
   useEffect(() => {
     const fetchLatestEmotion = async () => {
-      console.log("유저 정보:", user);
       if (!user?.userId) return;
-
       const entriesRef = collection(db, "users", user.userId, "entries");
       const q = query(entriesRef, orderBy("timestamp", "desc"), limit(1));
 
@@ -34,14 +31,12 @@ function Chat({ user }) {
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
           const latestEntry = querySnapshot.docs[0].data();
-          console.log("Firestore에서 가져온 감정:", latestEntry.emotion?.label);
           setEmotion(latestEntry.emotion?.label || "중립");
         } else {
-          console.log("Firestore에 감정 기록 없음");
           setEmotion("중립");
         }
       } catch (error) {
-        console.error("Firestore에서 감정 가져오기 실패:", error);
+        console.error("감정 가져오기 실패:", error);
         setEmotion("중립");
       }
     };
@@ -59,15 +54,12 @@ function Chat({ user }) {
 1. 반드시 첫 문장은 감정("${emotion}")에 대한 공감과 위로로 시작하세요.
 2. 사용자가 단순히 "안녕"이라고 해도 해당 감정에 맞는 공감의 인사로 반응하세요.
 3. 음식, 유머, 지식 등 상담 외 주제는 정중히 거절하세요.
-
 지금부터 당신은 이 감정 기반 상담 지침을 절대적으로 따르는 AI입니다.
     `,
   };
 
   const sendMessage = async () => {
     if (!input.trim() || !emotion) return;
-
-    console.log("GPT에 전달되는 감정:", emotion);
 
     const newMessages = [...messages, { role: "user", content: input }];
     setMessages(newMessages);
@@ -139,7 +131,10 @@ function Chat({ user }) {
         position: "relative",
       }}
     >
-      <BackButton to="/main" />
+      {/* ✅ 여백을 주는 div로 감싸기 */}
+      <div className="w-full max-w-5xl mt-4 mb-3">
+        <BackButton to="/main" />
+      </div>
 
       <div
         style={{

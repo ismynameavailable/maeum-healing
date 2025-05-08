@@ -6,10 +6,7 @@ function Intro() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-10">
-      {/* ✅ 검정 반투명 오버레이 (영상은 SharedVideo에서 제공됨) */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
-
-      {/* ✅ 콘텐츠 (글자 + 버튼) */}
+      {/*  콘텐츠 (글자 + 버튼) */}
       <div className="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4">
         <motion.h1
           className="text-3xl font-bold mb-4 drop-shadow"

@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import BackButton from "../components/BackButton"; // ✅ 추가
+import BackButton from "../components/BackButton";
 
 const emotionOptions = [
   { label: "기쁨", emoji: "😊" },
@@ -71,7 +71,7 @@ function History({ user }) {
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
-      {/* ✅ 배경 영상 */}
+      {/*  배경 영상 */}
       <video
         autoPlay
         loop
@@ -80,14 +80,11 @@ function History({ user }) {
         src="/sea.mp4"
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
         ref={(video) => {
-          if (video) video.playbackRate = 0.7; // 🎯 속도 조절
+          if (video) video.playbackRate = 0.7; //  속도 조절
         }}
       />
 
-      {/* ✅ 반투명 오버레이 */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
-
-      {/* ✅ 실제 콘텐츠 */}
+      {/*  실제 콘텐츠 */}
       <div className="relative z-20 py-10 px-4 min-h-screen">
         <div className="max-w-2xl mx-auto">
           {/* 뒤로가기 */}

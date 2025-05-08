@@ -1,33 +1,22 @@
-// src/components/BackButton.jsx
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function BackButton({ to = -1 }) {
+function BackButton({ to }) {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    if (to) {
+      navigate(to); //  전달받은 경로로 이동
+    } else {
+      navigate(-1); //  없으면 뒤로가기 기본 동작
+    }
+  };
+
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "20px",
-        left: "20px",
-        zIndex: 100,
-      }}
-    >
-      <button
-        onClick={() => navigate(to)}
-        style={{
-          background: "rgba(0,0,0,0.6)", // ✅ 반투명 검정 배경
-          color: "white", // ✅ 흰색 글자
-          border: "none",
-          padding: "8px 12px",
-          borderRadius: "8px",
-          fontWeight: "bold",
-          cursor: "pointer",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-        }}
-      >
-        ← 뒤로가기
-      </button>
-    </div>
+    <button className="btn btn-outline-primary mt-3 ms-3" onClick={handleClick}>
+      <i className="bi bi-arrow-left me-2"></i> 뒤로가기
+    </button>
   );
 }
+
+export default BackButton;

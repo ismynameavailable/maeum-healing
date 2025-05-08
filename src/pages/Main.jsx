@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BackButton from "../components/BackButton"; // ✅ 추가
+import BackButton from "../components/BackButton";
 function Main({ user }) {
   const [showButtons, setShowButtons] = useState(false);
   const navigate = useNavigate();
